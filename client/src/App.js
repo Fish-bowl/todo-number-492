@@ -1,9 +1,13 @@
 import React from 'react';
-import { Form, Header, Container, List, Input, Segment, Icon, Card, CardGroup, CardContent, CardMeta, CardHeader, } from 'semantic-ui-react';
+import { Form, Header, Container, List, Input, Segment, Icon, Card, CardGroup, CardContent, CardMeta, CardHeader, Button, } from 'semantic-ui-react';
 import axios from 'axios';
 
 const styles = {
-  complete: { textDecoration: 'line-through', color: 'grey' }
+  complete: { 
+    textDecoration: 'line-through', 
+    color: '#9a0007',
+    backgroundColor: '#9a0007'
+ }
 }
 
 class App extends React.Component {
@@ -31,7 +35,6 @@ class App extends React.Component {
   // }
 
   updateTodo = id => {
-    {debugger}
     axios.put(`/api/todos/${id}`)
       .then(({ data }) => {
         const todos = this.state.todos.map(todo => {
@@ -115,14 +118,21 @@ class App extends React.Component {
                 </CardHeader>
                 <CardMeta>
                   <br />
-                  <Icon 
-                    name='trash'
+                  <Button 
+                      color='#388e3c'
+                    icon
                     onClick={() => this.deleteTodo(todo.id)}
-                    
-                    style={{
-                      color: 'white',
-                    }}
-                  />
+                  >
+                      <Icon
+                        name='trash'
+                        
+
+                        style={{
+                          color: 'black',
+                        }}
+                      />
+                  </Button>
+                  
                 </CardMeta>
               </CardContent>
               </Card>
