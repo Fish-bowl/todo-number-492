@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Header, Container, List, Input, Segment, Icon, Card, CardGroup, CardContent, CardMeta, CardHeader, Button, } from 'semantic-ui-react';
+import { Form, Header, Container, List, Input, Segment, Icon, Card, CardGroup, CardContent, CardMeta, CardHeader, Button, Divider, } from 'semantic-ui-react';
 import axios from 'axios';
 
 const styles = {
@@ -61,7 +61,9 @@ class App extends React.Component {
   render() {
     const { name, todos } = this.state;
     return (
-      <Container>
+      <Container
+        fluid
+      >
         <Segment 
           textAlign="center" 
           style={{
@@ -84,6 +86,14 @@ class App extends React.Component {
               onChange={e => this.setState({ name: e.target.value })}
             />
           </Form>
+          <Divider 
+            horizontal
+            style={{
+              color: 'white'
+            }}
+          >
+          Todo's
+          </Divider>
           <br />
           <CardGroup
             itemsPerRow='four wide column'
@@ -119,9 +129,10 @@ class App extends React.Component {
                 <CardMeta>
                   <br />
                   <Button 
-                      color='#388e3c'
+                    color='#388e3c'
                     icon
                     onClick={() => this.deleteTodo(todo.id)}
+                    floated='right'
                   >
                       <Icon
                         name='trash'
