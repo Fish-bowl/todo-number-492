@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Header, Container, List, Input, Segment, Icon, } from 'semantic-ui-react';
+import { Form, Header, Container, List, Input, Segment, Icon, Card, CardGroup, CardContent, CardMeta, CardHeader, } from 'semantic-ui-react';
 import axios from 'axios';
 
 const styles = {
@@ -23,7 +23,15 @@ class App extends React.Component {
       })
   }
 
+  // editTodo = id => {
+  //   axios.put(`/api/todos/${id}`)
+  //     .then(({ data }) => {
+  //       const todos = this.state.todos
+  //     })
+  // }
+
   updateTodo = id => {
+    {debugger}
     axios.put(`/api/todos/${id}`)
       .then(({ data }) => {
         const todos = this.state.todos.map(todo => {
@@ -51,8 +59,21 @@ class App extends React.Component {
     const { name, todos } = this.state;
     return (
       <Container>
-        <Segment textAlign="center">
-          <Header as="h3" textAlign="center">Todo List</Header>
+        <Segment 
+          textAlign="center" 
+          style={{
+            backgroundColor: '#29434e'
+          }}
+        >
+          <Header
+            style={{
+              color: 'white'
+            }}
+            as="h2" 
+            textAlign="center"
+            >
+            Todo List
+          </Header>
           <Form onSubmit={this.handleSubmit}>
             <Input
               required
@@ -60,19 +81,54 @@ class App extends React.Component {
               onChange={e => this.setState({ name: e.target.value })}
             />
           </Form>
-          <List>
-            {todos.map(todo =>
-              <List.Item
+          <br />
+          <CardGroup
+            itemsPerRow='four wide column'
+            raised
+            stackable
+            style= {{
+
+            }}
+          >
+            
+            
+              {todos.map(todo =>
+              <Card
+                inverted
+                style={{
+                  backgroundColor: '#388e3c',
+                }}
+              >
+              <CardContent
                 key={todo.id}
                 style={todo.complete ? styles.complete : {}}
                 onClick={() => this.updateTodo(todo.id)}
+                
               >
-                {todo.name}
-                <Icon name='trash'onClick={() => this.deleteTodo(todo.id)}/>
-              </List.Item>
-            )
-            }
-          </List>
+                <CardHeader
+                  as='h2'
+                  style={{
+                    color: 'white',
+                  }}
+                >
+                  {todo.name} 
+                </CardHeader>
+                <CardMeta>
+                  <br />
+                  <Icon 
+                    name='trash'
+                    onClick={() => this.deleteTodo(todo.id)}
+                    
+                    style={{
+                      color: 'white',
+                    }}
+                  />
+                </CardMeta>
+              </CardContent>
+              </Card>
+            )}
+            
+          </CardGroup>
         </Segment>
       </Container>
     );
